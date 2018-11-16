@@ -30,7 +30,7 @@ module.exports = {
 					}
 				}
 			],
-			'@babel/plugin-proposal-decorators',
+			['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: false }],
 			['@babel/plugin-proposal-class-properties', { loose: true }],
 			['babel-plugin-inferno', { imports: true }],
 			'@babel/plugin-syntax-jsx'

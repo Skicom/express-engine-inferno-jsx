@@ -1,18 +1,18 @@
-var babel = require('@babel/core');
-var parser = require('@babel/parser');
-var traverse = require('@babel/traverse').default;
-var template = require('@babel/template');
-var t = require('@babel/types');
-var fs = require('fs');
-var attrMap = require('./data/attr-map');
-var options = require('./options');
+const babel = require('@babel/core');
+const parser = require('@babel/parser');
+const traverse = require('@babel/traverse').default;
+const template = require('@babel/template');
+const t = require('@babel/types');
+const fs = require('fs');
+const attrMap = require('./data/attr-map');
+const options = require('./options');
 
-var createExportFunction;
+let createExportFunction;
 
 module.exports = function(jsxPath, outPath) {
-	var code = fs.readFileSync(jsxPath).toString();
+	const code = fs.readFileSync(jsxPath).toString();
 
-	var ast = parser.parse(code, {
+	let ast = parser.parse(code, {
 		sourceType: 'module',
 		strictMode: false,
 		plugins: ['jsx']
@@ -21,9 +21,16 @@ module.exports = function(jsxPath, outPath) {
 	traverse(ast, {
 		enter: function prepare(path) {
 			path.get('body').forEach(function(item) {
-				if (item.isExpressionStatement() && item.node.expression.type === 'JSXElement') {
+				if (
+					item.isExpressionStatement() &&
+					item.node.expression.type === 'JSXElement'
+				) {
 					item.replaceWith(
-						t.assignmentExpression('=', t.identifier('__components'), item.node.expression)
+						t.assignmentExpression(
+							'=',
+							t.identifier('__components'),
+							item.node.expression
+						)
 						// t.callExpression(
 						// 	t.memberExpression(t.identifier('__components'), t.identifier('push')),
 						// 	[item.node.expression]
@@ -34,7 +41,7 @@ module.exports = function(jsxPath, outPath) {
 
 			path.traverse({
 				JSXAttribute: function(attr) {
-					var name = attr.node.name.name;
+					const name = attr.node.name.name;
 
 					if (name === 'class') {
 						attr.node.name.name = 'className';
@@ -43,7 +50,10 @@ module.exports = function(jsxPath, outPath) {
 					}
 				},
 				CallExpression: function(func) {
-					if (func.node.callee.type === 'Identifier' && func.node.callee.name === 'require') {
+					if (
+						func.node.callee.type === 'Identifier' &&
+						func.node.callee.name === 'require'
+					) {
 						func.node.callee.name = 'requireJSX';
 						func.node.arguments.push(t.identifier('__dirname'));
 					}
@@ -64,10 +74,10 @@ module.exports = function(jsxPath, outPath) {
 
 	ast = t.program(ast);
 
-	var babelOptions = options.babelOptions;
+	let babelOptions = options.babelOptions;
 	babelOptions.ast = false;
 
-	var res = babel.transformFromAst(ast, '', babelOptions);
+	const res = babel.transformFromAst(ast, '', babelOptions);
 
 	mkdir(outPath);
 
@@ -81,11 +91,11 @@ function mkdir(path) {
 
 	path = path.match(/[\/\\][^\/\\]+/g);
 
-	var root = '';
-	var dirs = [];
-	var i, len;
+	let root = '';
+	let dirs = [];
+	let len;
 
-	for (i = path.length; i >= 0; i--) {
+	for (let i = path.length; i >= 0; i--) {
 		root = path.join('');
 
 		if (!fs.existsSync(root)) {
@@ -97,7 +107,7 @@ function mkdir(path) {
 
 	dirs.reverse();
 
-	for (i = 0, len = dirs.length; i < len; i++) {
+	for (let i = 0, len = dirs.length; i < len; i++) {
 		root += dirs[i];
 
 		fs.mkdirSync(root);

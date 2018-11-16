@@ -1,14 +1,14 @@
 'use strict';
 
-var async = require('async');
-var path = require('path');
-var glob = require('glob');
-var convertJSXtoJS = require('./convert');
+const async = require('async');
+const path = require('path');
+const glob = require('glob');
+const convertJSXtoJS = require('./convert');
 
 module.exports = function(location, destination, cb) {
-	var fn = [];
-	var total_files;
-	var locations_finished = 0;
+	let fn = [];
+	let total_files;
+	let locations_finished = 0;
 
 	glob(
 		'**/*.jsx',
@@ -22,8 +22,10 @@ module.exports = function(location, destination, cb) {
 			total_files = files.length;
 			console.log('Total JSX Files to Build: ', total_files);
 			files.forEach(function(file) {
-				var filePathJSX = path.join(path.join(location, file));
-				var filePathJS = path.join(path.join(destination, file.replace(/\.(jsx)$/, '.js')));
+				const filePathJSX = path.join(path.join(location, file));
+				const filePathJS = path.join(
+					path.join(destination, file.replace(/\.(jsx)$/, '.js'))
+				);
 				fn.push(function(cb) {
 					console.log('Build JSX View: ' + file);
 					convertJSXtoJS(filePathJSX, filePathJS);

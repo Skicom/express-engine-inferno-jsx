@@ -1,14 +1,14 @@
-var options = require('./options');
-var requireJSX = require('./require');
-var isAbsolute = require('is-absolute');
+const options = require('./options');
+const requireJSX = require('./require');
+const isAbsolute = require('is-absolute');
 require('./jsx-require');
-var InfernoServer = require('inferno-server');
-var componentCache = {};
+const InfernoServer = require('inferno-server');
+let componentCache = {};
 
 module.exports = engine;
 
 function engine(path, params, cb) {
-	var Component;
+	let Component;
 	if (!params.cache || !componentCache[path]) {
 		Component = requireJSX(path.replace(/\.jsx$/, ''));
 		componentCache[path] = Component;
