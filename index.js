@@ -91,6 +91,14 @@ engine.setOptions = function(params) {
 		options.serverRoot = params.serverRoot;
 	}
 
+	if (params.hasOwnProperty('appRoot')) {
+		options.appRoot = params.appRoot;
+	}
+
+	if (params.hasOwnProperty('appSrc')) {
+		options.appSrc = params.appSrc;
+	}
+
 	if (params.hasOwnProperty('viewCache')) {
 		options.viewCache = params.viewCache;
 	}
