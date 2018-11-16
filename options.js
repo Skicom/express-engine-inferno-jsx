@@ -20,16 +20,6 @@ module.exports = {
 			]
 		],
 		plugins: [
-			[
-				'module-resolver',
-				{
-					alias: {
-						'apps-inferno': require('path').resolve(
-							__dirname + '/apps-inferno/src/'
-						)
-					}
-				}
-			],
 			['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: false }],
 			['@babel/plugin-proposal-class-properties', { loose: true }],
 			['babel-plugin-inferno', { imports: true }],
