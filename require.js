@@ -1,11 +1,10 @@
-var p = require('path');
-var fs = require('fs');
-var options = require('./options');
-var reload = require('require-reload')(require);
-var convertJSXtoJS = require('./convert');
-var componentsCache = {};
-
-var local = /^\.{0,2}\//;
+const p = require('path');
+const fs = require('fs');
+const options = require('./options');
+const reload = require('require-reload')(require);
+const convertJSXtoJS = require('./convert');
+const componentsCache = {};
+const local = /^\.{0,2}\//;
 
 module.exports = function (path, dirname) {
   var requireAlias =  options.requireAlias;

@@ -1,8 +1,8 @@
-var babel = require('babel-core');
-var babylon = require('babylon');
-var traverse = require('babel-traverse').default;
-var template = require('babel-template');
-var t = require('babel-types');
+var babel = require('@babel/core');
+var parser = require('@babel/parser');
+var traverse = require('@babel/traverse').default;
+var template = require('@babel/template');
+var t = require('@babel/types');
 var fs = require('fs');
 var attrMap = require('./data/attr-map');
 var options = require('./options');
@@ -12,7 +12,7 @@ var createExportFunction;
 module.exports = function(jsxPath, outPath) {
 	var code = fs.readFileSync(jsxPath).toString();
 
-	var ast = babylon.parse(code, {
+	var ast = parser.parse(code, {
 		sourceType: 'module',
 		strictMode: false,
 		plugins: ['jsx']

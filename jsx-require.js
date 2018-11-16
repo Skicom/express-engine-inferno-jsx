@@ -1,10 +1,9 @@
 const fs = require('fs');
-const babel = require('babel-core');
-var options = require('./options');
+const babel = require('@babel/core');
+const options = require('./options');
 
 require.extensions['.jsx'] = function(module, filename) {
-	let content = fs.readFileSync(filename, 'utf8');
-	let compiled = babel.transform(content, options.babelOptions).code;
-
+	const content = fs.readFileSync(filename, 'utf8');
+	const compiled = babel.transform(content, options.babelOptions).code;
 	return module._compile(compiled, filename);
 };
