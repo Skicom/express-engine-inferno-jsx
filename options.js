@@ -1,3 +1,7 @@
+console.log(require('path').resolve(
+	__dirname + '/apps-inferno/src/'
+))
+
 module.exports = {
 	cache: '',
 	views: '',
