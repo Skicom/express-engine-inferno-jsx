@@ -65,7 +65,7 @@ module.exports = function(jsxPath, outPath) {
 	});
 
 	if (!createExportFunction) {
-		createExportFunction = template(options.template);
+		createExportFunction = template.parse(options.template);
 	}
 
 	ast = createExportFunction({
