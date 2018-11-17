@@ -1,7 +1,7 @@
 const babel = require('@babel/core');
 const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
-const template = require('@babel/template');
+const { default: template } = require('@babel/template');
 const t = require('@babel/types');
 const fs = require('fs');
 const attrMap = require('./data/attr-map');
@@ -65,7 +65,7 @@ module.exports = function(jsxPath, outPath) {
 	});
 
 	if (!createExportFunction) {
-		createExportFunction = template.parse(options.template);
+		createExportFunction = template(options.template);
 	}
 
 	ast = createExportFunction({

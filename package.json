@@ -41,6 +41,6 @@
     "url": "https://github.com/kurdin/express-engine-inferno-jsx/issues"
   },
   "scripts": {
-    "test": "node test/index"
+    "test": "node test/index && node test/convert"
   }
 }
